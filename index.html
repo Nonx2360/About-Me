@@ -1,66 +1,716 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Developer Page</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>My Info Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+         :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #1abc9c;
+            --text-color: #ecf0f1;
+            --background-color: #1a1a1a;
+            --card-background: #2c3e50;
+            --overlay-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background-color: rgba(44, 62, 80, 0.95);
+            padding: 1rem 2rem;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .nav-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--text-color);
+            text-decoration: none;
+        }
+        
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 2rem;
+            transition: color 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        section {
+            padding: 5rem 2rem;
+            min-height: 100vh;
+        }
+        
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://img.freepik.com/free-photo/bright-pop-landscape-design_23-2149213461.jpg') center/cover;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+        
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        
+        .cta-button,
+        .secondary-button {
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-button {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+        }
+        
+        .secondary-button {
+            background-color: transparent;
+            border: 2px solid var(--text-color);
+            color: var(--text-color);
+        }
+        
+        .cta-button:hover,
+        .secondary-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .about-section,
+        .skills-section,
+        .projects-section,
+        .contact-section {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .about-text p {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .about-text p::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+        }
+        
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .skill-card {
+            background-color: var(--card-background);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent-color), transparent);
+            opacity: 0.1;
+            transition: opacity 0.3s ease;
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .skill-card:hover::before {
+            opacity: 0.2;
+        }
+        
+        .skill-card i {
+            font-size: 3rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        .project-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .project-card {
+            background-color: var(--card-background);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .project-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--overlay-color);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .project-overlay i {
+            font-size: 2rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+        
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        
+        .project-card:hover img {
+            transform: scale(1.1);
+        }
+        
+        .project-info {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .contact-category {
+            background-color: var(--card-background);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .contact-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .contact-category h3 {
+            color: var(--accent-color);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .contact-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .contact-card {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+        
+        .contact-card:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin-right: 1rem;
+        }
+        
+        .contact-icon i {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .contact-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 0.2rem;
+        }
+        
+        .contact-value {
+            font-size: 1rem;
+            font-weight: 500;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: var(--primary-color);
+            position: relative;
+        }
+        
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent-color), transparent);
+            opacity: 0.1;
+        }
+        
+        .social-icons {
+            margin-top: 1rem;
+        }
+        
+        .social-icons a {
+            color: var(--text-color);
+            margin: 0 0.5rem;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            color: var(--accent-color);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* Animation classes */
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .slide-in {
+            opacity: 0;
+            transform: translateX(-20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        
+        .slide-in.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    </style>
 </head>
-<body>
-    <header>
-        <h1>My Info Page</h1>
-<div contenteditable="true" style="border: 1px solid #ccc; padding: 10px; width: 100%; height: 200px; overflow: auto;">
-    Hi! I’m Non or you can call me “Ryan”.<br>
-    I’m From Thailand🇹🇭.<br>
-    I like to Coding Play Guitar and Watch Anime.<br>
-    Now I studying in DSNPRU.<br>
-    My Fev Hobby is Valorant And Trying To install ArchLinux Sound Hard Right?.<br>
-    But I Think It Too Hard For Me Because I Never Use No-GUI Linux Before.<br>
-    In The Feture I Want To Be A Full Stack Devlopper.<br>
-    My Fev Contry Is Japan🇯🇵 Because I like the food, Song, nature and Anime!!!.<br>
-    I Can Speak English But Not Too Much If Some Thing Worng Sorry In Advance!.<br>
 
-</div>
-    </header>
-    <section id="info">
-        <h2>Contact Information</h2>
-        <div class="button-container">
-            <button onclick="window.open('https://www.youtube.com/@Nonx2_real')">
-                <img src="https://e7.pngegg.com/pngimages/163/425/png-clipart-youtube-computer-icons-logo-subscribe-angle-desktop-wallpaper.png" alt="YouTube Logo" class="social-logo"> YouTube
-            </button>
-            <button onclick="window.open('https://www.instagram.com/nonx2_real/')">
-                <img src="https://i.pinimg.com/736x/da/06/e1/da06e1be9c12e606745ef470748937da.jpg" alt="Instagram Logo" class="social-logo"> Instagram
-            </button>
-            <button onclick="window.open('https://discordapp.com/users/908945543223463997')">
-                <img src="https://i.pinimg.com/736x/34/91/f3/3491f3e50ab6a4d51a348f9cc2419842.jpg" alt="Discord Logo" class="social-logo"> Discord
-            </button>
-            <button onclick="window.location.href='mailto:nonx2-real@proton.me'">
-                <img src="https://cdn4.iconfinder.com/data/icons/logos-brands-8/32/protonmail-logo-privacy-mail-cryptography-proton-1-512.png" alt="ProtonMail Logo" class="social-logo"> ProtonMail
-            </button>
-            <button onclick="window.location.href='mailto:nutchanon9911@gmail.com'">
-                <img src="https://static.vecteezy.com/system/resources/previews/046/719/190/non_2x/email-icon-glyph-icon-for-your-website-mobile-presentation-and-logo-design-vector.jpg" alt="Gmail Logo" class="social-logo"> Gmail
-            </button>
-            <button onclick="window.open('https://github.com/Nonx2360')">
-                <img src="https://static.vecteezy.com/system/resources/previews/016/833/872/non_2x/github-logo-git-hub-icon-on-white-background-free-vector.jpg" alt="GitHub Logo" class="social-logo"> GitHub
-            </button>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="#home" class="nav-logo">Info-Page</a>
+            <div class="nav-links">
+                <a href="#about"><i class="fas fa-user"></i> About</a>
+                <a href="#skills"><i class="fas fa-code"></i> Skills</a>
+                <a href="#projects"><i class="fas fa-project-diagram"></i> Projects</a>
+                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Hi, I'm Ryan</h1>
+            <p class="subtitle">Full Stack Developer in Training</p>
+            <div class="hero-buttons">
+                <a href="#contact" class="cta-button"><i class="fas fa-paper-plane"></i> Get in Touch</a>
+                <a href="#projects" class="secondary-button"><i class="fas fa-code-branch"></i> View Projects</a>
+            </div>
         </div>
     </section>
-    <section id="skills">
-        <h2>What I Can Do</h2>
-        <ul>
-            <li>Python</li>
-            <li>HTML</li>
-            <li>CSS</li>
-            <li>JavaScript</li>
-        </ul>
-        <h3>Project Screenshots</h3>
-        <div class="screenshot-gallery">
-            <img src="https://i.postimg.cc/Px2gwWyQ/python.png" alt="POS-Project (With Dashboard)" />
-            <img src="https://i.postimg.cc/FsfMYJL0/html.png" alt="Wheel Website" />
-            <img src="https://i.postimg.cc/W1gxnLS3/css.png" alt="Styles For It" />
-            <img src="https://i.postimg.cc/D0SM4t87/js.png" alt="Some Script" />
+
+    <section id="about" class="about-section">
+        <div class="about-content">
+            <h2 class="slide-in"><i class="fas fa-user"></i> About Me</h2>
+            <div class="about-text fade-in">
+                <p><i class="fas fa-map-marker-alt"></i> I'm a passionate developer from Thailand 🇹🇭 with a love for coding, music, and anime.</p>
+                <p><i class="fas fa-graduation-cap"></i> Currently studying at DSNPRU, I'm on a journey to become a Full Stack Developer.</p>
+                <p><i class="fas fa-gamepad"></i> When I'm not coding, you can find me playing Valorant, practicing guitar, or attempting to master Arch Linux (it's challenging but rewarding!).</p>
+                <p><i class="fas fa-heart"></i> I'm particularly fascinated by Japanese culture 🇯🇵 - from its delicious cuisine to its beautiful nature and, of course, anime!</p>
+            </div>
         </div>
     </section>
-    <script src="script.js"></script>
+
+    <section id="skills" class="skills-section">
+        <h2 class="slide-in"><i class="fas fa-code"></i> My Skills</h2>
+        <div class="skills-grid">
+            <div class="skill-card fade-in">
+                <i class="fab fa-python"></i>
+                <h3>Python</h3>
+                <p>Backend development and automation</p>
+                <div class="skill-icons">
+                    <i class="fas fa-server"></i>
+                    <i class="fas fa-robot"></i>
+                    <i class="fas fa-database"></i>
+                </div>
+            </div>
+            <div class="skill-card fade-in">
+                <i class="fab fa-html5"></i>
+                <h3>HTML</h3>
+                <p>Semantic and accessible markup</p>
+                <div class="skill-icons">
+                    <i class="fas fa-code"></i>
+                    <i class="fas fa-sitemap"></i>
+                    <i class="fas fa-universal-access"></i>
+                </div>
+            </div>
+            <div class="skill-card fade-in">
+                <i class="fab fa-css3-alt"></i>
+                <h3>CSS</h3>
+                <p>Modern styling and animations</p>
+                <div class="skill-icons">
+                    <i class="fas fa-paint-brush"></i>
+                    <i class="fas fa-mobile-alt"></i>
+                    <i class="fas fa-magic"></i>
+                </div>
+            </div>
+            <div class="skill-card fade-in">
+                <i class="fab fa-js"></i>
+                <h3>JavaScript</h3>
+                <p>Interactive web applications</p>
+                <div class="skill-icons">
+                    <i class="fas fa-mouse-pointer"></i>
+                    <i class="fas fa-sync-alt"></i>
+                    <i class="fas fa-chart-line"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects-section">
+        <h2 class="slide-in"><i class="fas fa-project-diagram"></i> My Projects</h2>
+        <div class="project-gallery">
+            <div class="project-card fade-in">
+                <img src="https://i.postimg.cc/Px2gwWyQ/python.png" alt="POS Project">
+                <div class="project-overlay">
+                    <i class="fas fa-store"></i>
+                    <h3>POS System</h3>
+                    <p>Point of Sale system with dashboard</p>
+                </div>
+                <div class="project-info">
+                    <h3>POS System</h3>
+                    <p>Point of Sale system with dashboard</p>
+                    <div class="project-tech">
+                        <i class="fab fa-python"></i>
+                        <i class="fas fa-database"></i>
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="https://i.postimg.cc/FsfMYJL0/html.png" alt="Wheel Website">
+                <div class="project-overlay">
+                    <i class="fas fa-gamepad"></i>
+                    <h3>Wheel Website</h3>
+                    <p>Interactive wheel-based website</p>
+                </div>
+                <div class="project-info">
+                    <h3>Wheel Website</h3>
+                    <p>Interactive wheel-based website</p>
+                    <div class="project-tech">
+                        <i class="fab fa-html5"></i>
+                        <i class="fab fa-css3-alt"></i>
+                        <i class="fab fa-js"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="project-card fade-in">
+                <img src="https://i.postimg.cc/D0SM4t87/js.png" alt="JavaScript Project">
+                <div class="project-overlay">
+                    <i class="fas fa-code"></i>
+                    <h3>JavaScript Applications</h3>
+                    <p>Various interactive scripts</p>
+                </div>
+                <div class="project-info">
+                    <h3>JavaScript Applications</h3>
+                    <p>Various interactive scripts</p>
+                    <div class="project-tech">
+                        <i class="fab fa-js"></i>
+                        <i class="fas fa-mobile-alt"></i>
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <h2 class="slide-in"><i class="fas fa-envelope"></i> Get in Touch</h2>
+        <div class="contact-grid">
+            <div class="contact-category fade-in">
+                <h3><i class="fas fa-video"></i> Social Media</h3>
+                <div class="contact-cards">
+                    <a href="https://www.youtube.com/@Nonx2_real" class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <div class="contact-info">
+                            <span class="contact-label">YouTube</span>
+                            <span class="contact-value">@Nonx2_real</span>
+                        </div>
+                    </a>
+                    <a href="https://www.instagram.com/nonx2_real/" class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-instagram"></i>
+                        </div>
+                        <div class="contact-info">
+                            <span class="contact-label">Instagram</span>
+                            <span class="contact-value">@nonx2_real</span>
+                        </div>
+                    </a>
+                    <a href="https://discordapp.com/users/908945543223463997" class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-discord"></i>
+                        </div>
+                        <div class="contact-info">
+                            <span class="contact-label">Discord</span>
+                            <span class="contact-value">Nonx2#1234</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="contact-category fade-in">
+                <h3><i class="fas fa-envelope"></i> Email</h3>
+                <div class="contact-cards">
+                    <a href="mailto:nonx2-real@proton.me" class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-info">
+                            <span class="contact-label">ProtonMail</span>
+                            <span class="contact-value">nonx2-real@proton.me</span>
+                        </div>
+                    </a>
+                    <a href="mailto:nutchanon9911@gmail.com" class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-info">
+                            <span class="contact-label">Gmail</span>
+                            <span class="contact-value">nutchanon9911@gmail.com</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <div class="contact-category fade-in">
+                <h3><i class="fas fa-code"></i> Development</h3>
+                <div class="contact-cards">
+                    <a href="https://github.com/Nonx2360" class="contact-card">
+                        <div class="contact-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="contact-info">
+                            <span class="contact-label">GitHub</span>
+                            <span class="contact-value">Nonx2360</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Ryan. All rights reserved.</p>
+        <div class="social-icons">
+            <a href="https://www.youtube.com/@Nonx2_real"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.instagram.com/nonx2_real/"><i class="fab fa-instagram"></i></a>
+            <a href="https://discordapp.com/users/908945543223463997"><i class="fab fa-discord"></i></a>
+            <a href="https://github.com/Nonx2360"><i class="fab fa-github"></i></a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', () => {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.style.backgroundColor = 'rgba(44, 62, 80, 0.95)';
+                } else {
+                    navbar.style.backgroundColor = 'rgba(44, 62, 80, 0.8)';
+                }
+            });
+
+            // Fade-in animation for sections
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            document.querySelectorAll('.fade-in, .slide-in').forEach(element => {
+                observer.observe(element);
+            });
+
+            // Add hover effect to project cards
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.querySelector('.project-overlay').style.opacity = '1';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.querySelector('.project-overlay').style.opacity = '0';
+                });
+            });
+        });
+    </script>
 </body>
+
 </html>
