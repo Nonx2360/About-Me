@@ -1,716 +1,719 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Info Page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <title>Nonx2's  Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a202c',
+                        secondary: '#2b6cb0',
+                        accent: '#3182ce',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 1s ease-in-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
     <style>
-         :root {
-            --primary-color: #2c3e50;
-            --secondary-color: #3498db;
-            --accent-color: #1abc9c;
-            --text-color: #ecf0f1;
-            --background-color: #1a1a1a;
-            --card-background: #2c3e50;
-            --overlay-color: rgba(0, 0, 0, 0.7);
+        @tailwind base;
+        @tailwind components;
+        @tailwind utilities;
+
+        /* Prevent horizontal scroll on mobile */
+        html, body {
+            max-width: 100%;
+            overflow-x: hidden;
         }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            line-height: 1.6;
-        }
-        
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: rgba(44, 62, 80, 0.95);
-            padding: 1rem 2rem;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-        
-        .nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .nav-logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--text-color);
-            text-decoration: none;
-        }
-        
-        .nav-links a {
-            color: var(--text-color);
-            text-decoration: none;
-            margin-left: 2rem;
-            transition: color 0.3s ease;
-        }
-        
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
-        
-        section {
-            padding: 5rem 2rem;
-            min-height: 100vh;
-        }
-        
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://img.freepik.com/free-photo/bright-pop-landscape-design_23-2149213461.jpg') center/cover;
-            opacity: 0.2;
-            z-index: 0;
-        }
-        
-        .hero-content {
-            max-width: 800px;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-        
-        .subtitle {
-            font-size: 1.5rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-        
-        .hero-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-        }
-        
-        .cta-button,
-        .secondary-button {
-            padding: 1rem 2rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .cta-button {
-            background-color: var(--accent-color);
-            color: var(--text-color);
-        }
-        
-        .secondary-button {
-            background-color: transparent;
-            border: 2px solid var(--text-color);
-            color: var(--text-color);
-        }
-        
-        .cta-button:hover,
-        .secondary-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        }
-        
-        .about-section,
-        .skills-section,
-        .projects-section,
-        .contact-section {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .about-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            align-items: center;
-        }
-        
-        .about-text p {
-            margin-bottom: 1rem;
-            position: relative;
-            padding-left: 1.5rem;
-        }
-        
-        .about-text p::before {
-            content: '•';
-            position: absolute;
-            left: 0;
-            color: var(--accent-color);
-        }
-        
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .skill-card {
-            background-color: var(--card-background);
-            padding: 2rem;
-            border-radius: 10px;
-            text-align: center;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .skill-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, var(--accent-color), transparent);
-            opacity: 0.1;
-            transition: opacity 0.3s ease;
-        }
-        
-        .skill-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .skill-card:hover::before {
-            opacity: 0.2;
-        }
-        
-        .skill-card i {
-            font-size: 3rem;
-            color: var(--accent-color);
-            margin-bottom: 1rem;
-        }
-        
-        .project-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .project-card {
-            background-color: var(--card-background);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-        
-        .project-card img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-        
-        .project-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--overlay-color);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-        
-        .project-overlay i {
-            font-size: 2rem;
-            color: var(--accent-color);
-            margin-bottom: 1rem;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .project-card:hover .project-overlay {
-            opacity: 1;
-        }
-        
-        .project-card:hover img {
-            transform: scale(1.1);
-        }
-        
-        .project-info {
-            padding: 1.5rem;
-            position: relative;
-            z-index: 1;
-        }
-        
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-top: 2rem;
-        }
-        
-        .contact-category {
-            background-color: var(--card-background);
-            border-radius: 10px;
-            padding: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-        
-        .contact-category:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-        
-        .contact-category h3 {
-            color: var(--accent-color);
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .contact-cards {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .contact-card {
-            display: flex;
-            align-items: center;
-            padding: 1rem;
-            background-color: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            text-decoration: none;
-            color: var(--text-color);
-            transition: all 0.3s ease;
-        }
-        
-        .contact-card:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            transform: translateX(5px);
-        }
-        
-        .contact-icon {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            margin-right: 1rem;
-        }
-        
-        .contact-icon i {
-            font-size: 1.2rem;
-            color: var(--accent-color);
-        }
-        
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .contact-label {
-            font-size: 0.9rem;
-            opacity: 0.8;
-            margin-bottom: 0.2rem;
-        }
-        
-        .contact-value {
-            font-size: 1rem;
-            font-weight: 500;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 2rem;
-            background-color: var(--primary-color);
-            position: relative;
-        }
-        
-        footer::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, var(--accent-color), transparent);
-            opacity: 0.1;
-        }
-        
-        .social-icons {
-            margin-top: 1rem;
-        }
-        
-        .social-icons a {
-            color: var(--text-color);
-            margin: 0 0.5rem;
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
-        }
-        
-        .social-icons a:hover {
-            color: var(--accent-color);
-        }
-        
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
+
+        @layer utilities {
+            /* Navigation bar specific glass effect */
+            .navbar-glass {
+                background: rgba(26, 32, 44, 0.8);
+                backdrop-filter: saturate(180%) blur(20px);
+                -webkit-backdrop-filter: saturate(180%) blur(20px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+                background-clip: padding-box;
+                position: relative;
+                overflow: hidden;
             }
-            .about-content {
-                grid-template-columns: 1fr;
+            .navbar-glass::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(
+                    to bottom,
+                    rgba(255, 255, 255, 0.3) 0%,
+                    rgba(255, 255, 255, 0.1) 50%,
+                    rgba(255, 255, 255, 0) 100%
+                );
+                pointer-events: none;
+                z-index: -1;
             }
-            .hero h1 {
-                font-size: 2.5rem;
+            
+            /* Original glass style for other elements */
+            .glass {
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(16px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             }
-            .subtitle {
-                font-size: 1.2rem;
+            .glass-card {
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(16px);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                border-radius: 1rem;
+                padding: 1.5rem;
+                transition: all 0.3s ease;
+                box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             }
-            .contact-grid {
-                grid-template-columns: 1fr;
+            .glass-card:hover {
+                background: rgba(255, 255, 255, 0.2);
+                box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+                transform: translateY(-5px);
             }
-        }
-        /* Animation classes */
-        
-        .fade-in {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .slide-in {
-            opacity: 0;
-            transform: translateX(-20px);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        
-        .slide-in.visible {
-            opacity: 1;
-            transform: translateX(0);
+            .section-title {
+                font-size: 2.25rem;
+                font-weight: 700;
+                margin-bottom: 3rem;
+                text-align: center;
+                position: relative;
+                display: inline-block;
+            }
+            .section-title::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 0.25rem;
+                background: linear-gradient(to right, #1abc9c, #3498db);
+                border-radius: 9999px;
+            }
         }
     </style>
 </head>
+<body class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen text-gray-100">
+    <!-- Navigation -->
+    <!-- Mobile Menu Overlay -->
+    <div id="mobile-menu" class="fixed inset-0 bg-black/80 z-40 hidden">
+        <div class="flex flex-col items-center justify-center h-full space-y-8">
+            <a href="#about" class="text-2xl text-white hover:text-blue-400 transition-colors" onclick="closeMobileMenu()">About</a>
+            <a href="#skills" class="text-2xl text-white hover:text-blue-400 transition-colors" onclick="closeMobileMenu()">Skills</a>
+            <a href="#projects" class="text-2xl text-white hover:text-blue-400 transition-colors" onclick="closeMobileMenu()">Projects</a>
+            <a href="#discord" class="text-2xl text-white hover:text-blue-400 transition-colors" onclick="closeMobileMenu()">What I'm Up To</a>
+            <a href="#contact" class="text-2xl text-white hover:text-blue-400 transition-colors" onclick="closeMobileMenu()">Contact</a>
+            <button onclick="closeMobileMenu()" class="absolute top-6 right-6 text-3xl text-white">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
 
-<body>
-    <nav class="navbar">
-        <div class="nav-content">
-            <a href="#home" class="nav-logo">Info-Page</a>
-            <div class="nav-links">
-                <a href="#about"><i class="fas fa-user"></i> About</a>
-                <a href="#skills"><i class="fas fa-code"></i> Skills</a>
-                <a href="#projects"><i class="fas fa-project-diagram"></i> Projects</a>
-                <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50">
+        <div class="container mx-auto px-4 sm:px-6 py-3">
+            <div class="navbar-glass flex justify-between items-center rounded-2xl px-6 py-3 max-w-5xl mx-auto border border-white/10 shadow-2xl">
+                <a href="#" class="text-xl sm:text-2xl font-bold text-white hover:text-blue-400 transition-colors duration-300">Nonx2's Portfolio</a>
+                <div class="hidden md:flex space-x-6 lg:space-x-8">
+                    <a href="#about" class="text-sm sm:text-base text-white/80 hover:text-blue-300 px-3 py-1.5 rounded-full hover:bg-blue-500/10 transition-all duration-300">About</a>
+                    <a href="#skills" class="text-sm sm:text-base text-white/80 hover:text-blue-300 px-3 py-1.5 rounded-full hover:bg-blue-500/10 transition-all duration-300">Skills</a>
+                    <a href="#projects" class="text-sm sm:text-base text-white/80 hover:text-blue-300 px-3 py-1.5 rounded-full hover:bg-blue-500/10 transition-all duration-300">Projects</a>
+                    <a href="#discord" class="text-sm sm:text-base text-white/80 hover:text-blue-300 px-3 py-1.5 rounded-full hover:bg-blue-500/10 transition-all duration-300">What I'm Up To</a>
+                    <a href="#contact" class="text-sm sm:text-base text-white/80 hover:text-blue-300 px-3 py-1.5 rounded-full hover:bg-blue-500/10 transition-all duration-300">Contact</a>
+                </div>
+                <button id="menu-button" class="md:hidden text-2xl text-white">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>Hi, I'm Non</h1>
-            <p class="subtitle">Full Stack Developer in Training</p>
-            <div class="hero-buttons">
-                <a href="#contact" class="cta-button"><i class="fas fa-paper-plane"></i> Get in Touch</a>
-                <a href="#projects" class="secondary-button"><i class="fas fa-code-branch"></i> View Projects</a>
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative overflow-hidden">
+        <div class="absolute inset-0 bg-[url('https://img.freepik.com/free-photo/bright-pop-landscape-design_23-2149213461.jpg')] bg-cover opacity-20"></div>
+        <div class="container mx-auto px-6 text-center relative z-10 animate-fade-in">
+            <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-white to-accent bg-clip-text text-transparent px-4">Hi, I'm <span class="text-accent">Nonx2</span></h1>
+            <div class="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 text-gray-300 animate-slide-up px-4">
+                <span class="typing-text"></span><span class="cursor">|</span>
             </div>
+            <p class="text-base sm:text-lg md:text-xl max-w-2xl mx-auto mb-8 sm:mb-10 text-gray-300 animate-slide-up px-4">
+                Full Stack Developer | Music Lover | Anime Enthusiast
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 px-4 animate-slide-up">
+                <a href="#contact" class="bg-blue-600 hover:bg-blue-700 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-medium transition-all duration-300 transform hover:-translate-y-1 text-center shadow-lg hover:shadow-blue-500/20">
+                    Contact Me
+                </a>
+                <a href="#projects" class="border-2 border-blue-500/30 hover:border-blue-400 text-white px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-medium transition-all duration-300 transform hover:-translate-y-1 text-center hover:bg-blue-500/10">
+                    View Work
+                </a>
+            </div>
+        </div>
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#about" class="text-2xl">
+                <i class="fas fa-chevron-down"></i>
+            </a>
         </div>
     </section>
 
-    <section id="about" class="about-section">
-        <div class="about-content">
-            <h2 class="slide-in"><i class="fas fa-user"></i> About Me</h2>
-            <div class="about-text fade-in">
-                <p><i class="fas fa-map-marker-alt"></i> I'm a passionate developer from Thailand 🇹🇭 with a love for coding, music, and anime.</p>
-                <p><i class="fas fa-graduation-cap"></i> Currently studying at DSNPRU, I'm on a journey to become a Full Stack Developer.</p>
-                <p><i class="fas fa-gamepad"></i> When I'm not coding, you can find me playing Valorant, practicing guitar, or attempting to master Arch Linux (it's challenging but rewarding!).</p>
-                <p><i class="fas fa-heart"></i> I'm particularly fascinated by Japanese culture 🇯🇵 - from its delicious cuisine to its beautiful nature and, of course, anime!</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="skills" class="skills-section">
-        <h2 class="slide-in"><i class="fas fa-code"></i> My Skills</h2>
-        <div class="skills-grid">
-            <div class="skill-card fade-in">
-                <i class="fab fa-python"></i>
-                <h3>Python</h3>
-                <p>Backend development and automation</p>
-                <div class="skill-icons">
-                    <i class="fas fa-server"></i>
-                    <i class="fas fa-robot"></i>
-                    <i class="fas fa-database"></i>
-                </div>
-            </div>
-            <div class="skill-card fade-in">
-                <i class="fab fa-html5"></i>
-                <h3>HTML</h3>
-                <p>Semantic and accessible markup</p>
-                <div class="skill-icons">
-                    <i class="fas fa-code"></i>
-                    <i class="fas fa-sitemap"></i>
-                    <i class="fas fa-universal-access"></i>
-                </div>
-            </div>
-            <div class="skill-card fade-in">
-                <i class="fab fa-css3-alt"></i>
-                <h3>CSS</h3>
-                <p>Modern styling and animations</p>
-                <div class="skill-icons">
-                    <i class="fas fa-paint-brush"></i>
-                    <i class="fas fa-mobile-alt"></i>
-                    <i class="fas fa-magic"></i>
-                </div>
-            </div>
-            <div class="skill-card fade-in">
-                <i class="fab fa-js"></i>
-                <h3>JavaScript</h3>
-                <p>Interactive web applications</p>
-                <div class="skill-icons">
-                    <i class="fas fa-mouse-pointer"></i>
-                    <i class="fas fa-sync-alt"></i>
-                    <i class="fas fa-chart-line"></i>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="projects" class="projects-section">
-        <h2 class="slide-in"><i class="fas fa-project-diagram"></i> My Projects</h2>
-        <div class="project-gallery">
-            <div class="project-card fade-in">
-                <img src="https://i.postimg.cc/Px2gwWyQ/python.png" alt="POS Project">
-                <div class="project-overlay">
-                    <i class="fas fa-store"></i>
-                    <h3>POS System</h3>
-                    <p>Point of Sale system with dashboard</p>
-                </div>
-                <div class="project-info">
-                    <h3>POS System</h3>
-                    <p>Point of Sale system with dashboard</p>
-                    <div class="project-tech">
-                        <i class="fab fa-python"></i>
-                        <i class="fas fa-database"></i>
-                        <i class="fas fa-chart-bar"></i>
+    <!-- About Section -->
+    <section id="about" class="py-16 sm:py-20 relative px-4 sm:px-6">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title mb-16">About Me</h2>
+            <div class="glass-card max-w-4xl mx-auto">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div class="animate-float">
+                        <img src="https://i.postimg.cc/W1538GCK/my-pic.jpg" alt="Profile" class="rounded-full w-64 h-64 object-cover mx-auto border-4 border-accent/30 p-1">
                     </div>
-                </div>
-            </div>
-            <div class="project-card fade-in">
-                <img src="https://i.postimg.cc/FsfMYJL0/html.png" alt="Wheel Website">
-                <div class="project-overlay">
-                    <i class="fas fa-gamepad"></i>
-                    <h3>Wheel Website</h3>
-                    <p>Interactive wheel-based website</p>
-                </div>
-                <div class="project-info">
-                    <h3>Wheel Website</h3>
-                    <p>Interactive wheel-based website</p>
-                    <div class="project-tech">
-                        <i class="fab fa-html5"></i>
-                        <i class="fab fa-css3-alt"></i>
-                        <i class="fab fa-js"></i>
-                    </div>
-                </div>
-            </div>
-            <div class="project-card fade-in">
-                <img src="https://i.postimg.cc/D0SM4t87/js.png" alt="JavaScript Project">
-                <div class="project-overlay">
-                    <i class="fas fa-code"></i>
-                    <h3>JavaScript Applications</h3>
-                    <p>Various interactive scripts</p>
-                </div>
-                <div class="project-info">
-                    <h3>JavaScript Applications</h3>
-                    <p>Various interactive scripts</p>
-                    <div class="project-tech">
-                        <i class="fab fa-js"></i>
-                        <i class="fas fa-mobile-alt"></i>
-                        <i class="fas fa-puzzle-piece"></i>
+                    <div>
+                        <p class="mb-4 flex items-start">
+                            <i class="fas fa-code text-accent mr-3 mt-1"></i>
+                            <span>Passionate about coding, music, and anime. I love creating beautiful and functional web applications.</span>
+                        </p>
+                        <p class="mb-4 flex items-start">
+                            <i class="fas fa-graduation-cap text-accent mr-3 mt-1"></i>
+                            <span>Currently studying at DSNPRU, I'm on a journey to become a Full Stack Developer.</span>
+                        </p>
+                        <p class="mb-4 flex items-start">
+                            <i class="fas fa-gamepad text-accent mr-3 mt-1"></i>
+                            <span>When I'm not coding, you can find me playing Valorant, practicing guitar, or attempting to master Arch Linux (it's challenging but rewarding!).</span>
+                        </p>
+                        <p class="flex items-start">
+                            <i class="fas fa-heart text-accent mr-3 mt-1"></i>
+                            <span>I'm particularly fascinated by Japanese culture 🇯🇵 - from its delicious cuisine to its beautiful nature and, of course, anime!</span>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="contact-section">
-        <h2 class="slide-in"><i class="fas fa-envelope"></i> Get in Touch</h2>
-        <div class="contact-grid">
-            <div class="contact-category fade-in">
-                <h3><i class="fas fa-video"></i> Social Media</h3>
-                <div class="contact-cards">
-                    <a href="https://www.youtube.com/@Nonx2_real" class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-youtube"></i>
-                        </div>
-                        <div class="contact-info">
-                            <span class="contact-label">YouTube</span>
-                            <span class="contact-value">@Nonx2_real</span>
-                        </div>
-                    </a>
-                    <a href="https://www.instagram.com/nonx2_real/" class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-instagram"></i>
-                        </div>
-                        <div class="contact-info">
-                            <span class="contact-label">Instagram</span>
-                            <span class="contact-value">@nonx2_real</span>
-                        </div>
-                    </a>
-                    <a href="https://discordapp.com/users/908945543223463997" class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-discord"></i>
-                        </div>
-                        <div class="contact-info">
-                            <span class="contact-label">Discord</span>
-                            <span class="contact-value">Nonx2#1234</span>
-                        </div>
-                    </a>
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 sm:py-20 bg-gradient-to-br from-white/5 to-transparent px-4 sm:px-6">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title mb-16">My Skills</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-5xl mx-auto">
+                <!-- Skill Card 1 -->
+                <div class="glass-card group">
+                    <div class="text-5xl mb-4 text-accent">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Frontend</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>HTML5, CSS3, JavaScript</li>
+                        <li>React, Vue.js</li>
+                        <li>Tailwind CSS, Bootstrap</li>
+                    </ul>
                 </div>
-            </div>
 
-            <div class="contact-category fade-in">
-                <h3><i class="fas fa-envelope"></i> Email</h3>
-                <div class="contact-cards">
-                    <a href="mailto:nonx2-real@proton.me" class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-info">
-                            <span class="contact-label">ProtonMail</span>
-                            <span class="contact-value">nonx2-real@proton.me</span>
-                        </div>
-                    </a>
-                    <a href="mailto:nutchanon9911@gmail.com" class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-info">
-                            <span class="contact-label">Gmail</span>
-                            <span class="contact-value">nutchanon9911@gmail.com</span>
-                        </div>
-                    </a>
+                <!-- Skill Card 2 -->
+                <div class="glass-card group">
+                    <div class="text-5xl mb-4 text-accent">
+                        <i class="fas fa-server"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Backend</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>Node.js, Express</li>
+                        <li>Python, Django</li>
+                        <li>MongoDB, MySQL</li>
+                    </ul>
                 </div>
-            </div>
 
-            <div class="contact-category fade-in">
-                <h3><i class="fas fa-code"></i> Development</h3>
-                <div class="contact-cards">
-                    <a href="https://github.com/Nonx2360" class="contact-card">
-                        <div class="contact-icon">
-                            <i class="fab fa-github"></i>
-                        </div>
-                        <div class="contact-info">
-                            <span class="contact-label">GitHub</span>
-                            <span class="contact-value">Nonx2360</span>
-                        </div>
-                    </a>
+                <!-- Skill Card 3 -->
+                <div class="glass-card group">
+                    <div class="text-5xl mb-4 text-accent">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Tools & Others</h3>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>Git & GitHub</li>
+                        <li>Docker</li>
+                        <li>Linux, Arch Linux</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2025 Non. All rights reserved.</p>
-        <div class="social-icons">
-            <a href="https://www.youtube.com/@Nonx2_real"><i class="fab fa-youtube"></i></a>
-            <a href="https://www.instagram.com/nonx2_real/"><i class="fab fa-instagram"></i></a>
-            <a href="https://discordapp.com/users/908945543223463997"><i class="fab fa-discord"></i></a>
-            <a href="https://github.com/Nonx2360"><i class="fab fa-github"></i></a>
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 sm:py-20 px-4 sm:px-6">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title mb-16">My Projects</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
+                <!-- Project 1 -->
+                <div class="glass-card group">
+                    <div class="overflow-hidden rounded-lg mb-4">
+                        <img src="https://i.postimg.cc/Px2gwWyQ/python.png" alt="POS Project" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">POS System</h3>
+                    <p class="text-gray-300 mb-4">A Point of Sale system built with Python and Tkinter.</p>
+                    <div class="flex space-x-2">
+                        <span class="text-xs bg-accent/20 text-accent px-2 py-1 rounded">Python</span>
+                        <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded">Tkinter</span>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="glass-card group">
+                    <div class="overflow-hidden rounded-lg mb-4">
+                        <img src="https://i.postimg.cc/FsfMYJL0/html.png" alt="Web Project" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Portfolio Website</h3>
+                    <p class="text-gray-300 mb-4">A modern portfolio website built with HTML, CSS, and JavaScript.</p>
+                    <div class="flex space-x-2">
+                        <span class="text-xs bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded">HTML</span>
+                        <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded">CSS</span>
+                        <span class="text-xs bg-yellow-400/20 text-yellow-300 px-2 py-1 rounded">JavaScript</span>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="glass-card group">
+                    <div class="overflow-hidden rounded-lg mb-4">
+                        <img src="https://i.postimg.cc/D0SM4t87/js.png" alt="React Project" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">Task Manager</h3>
+                    <p class="text-gray-300 mb-4">A task management application built with React and Firebase.</p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded">React</span>
+                        <span class="text-xs bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded">Firebase</span>
+                        <span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-1 rounded">Tailwind CSS</span>
+                    </div>
+                </div>
+
+                <!-- Project 4 - PY-LIB -->
+                <div class="glass-card group">
+                    <div class="overflow-hidden rounded-lg mb-4">
+                        <img src="https://i.postimg.cc/j23gvk62/PYLIB.png" alt="PY-LIB Library System" class="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110">
+                    </div>
+                    <h3 class="text-xl font-bold mb-2">PY-LIB System</h3>
+                    <p class="text-gray-300 mb-4">An intelligent library management system with QR code support and advanced security features.</p>
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        <span class="text-xs bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded">Python</span>
+                        <span class="text-xs bg-blue-500/20 text-blue-400 px-2 py-1 rounded">SQLite</span>
+                        <span class="text-xs bg-purple-500/20 text-purple-400 px-2 py-1 rounded">AES-256</span>
+                        <span class="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded">QR Code</span>
+                    </div>
+                    <div class="text-sm text-gray-400 space-y-1">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2 text-xs"></i>
+                            <span>Secure Member & Book Management</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2 text-xs"></i>
+                            <span>QR Code Scanning & Generation</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2 text-xs"></i>
+                            <span>Late Return Alerts</span>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <a href="https://github.com/Nonx2360/The-PY-LIB-Project" class="text-accent hover:underline text-sm flex items-center">
+                            View Details <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Discord Status -->
+    <section id="discord" class="py-16 sm:py-20 px-4 sm:px-6 bg-gradient-to-br from-indigo-900/20 to-purple-900/20">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title mb-16">What I'm Up To</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Now Listening -->
+                <div class="glass-card p-6">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-music text-2xl text-indigo-400 mr-3"></i>
+                        <h3 class="text-xl font-bold">Now Listening</h3>
+                    </div>
+                    <div id="nowListening" class="text-center p-4 rounded-lg bg-white/5">
+                        <p class="text-gray-300">Not playing anything</p>
+                    </div>
+                </div>
+                
+                <!-- Now Playing -->
+                <div class="glass-card p-6">
+                    <div class="flex items-center mb-4">
+                        <i class="fas fa-gamepad text-2xl text-purple-400 mr-3"></i>
+                        <h3 class="text-xl font-bold">Now Playing</h3>
+                    </div>
+                    <div id="nowPlaying" class="text-center p-4 rounded-lg bg-white/5">
+                        <p class="text-gray-300">Not in a game</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        const userId = "908945543223463997";
+        const apiUrl = `https://api.lanyard.rest/v1/users/${userId}`;
+
+        async function updateDiscordStatus() {
+            try {
+                const res = await fetch(apiUrl);
+                const data = await res.json();
+                const nowPlayingEl = document.getElementById("nowPlaying");
+                const nowListeningEl = document.getElementById("nowListening");
+                
+                if (!data.success || !data.data.activities || data.data.activities.length === 0) {
+                    nowListeningEl.innerHTML = '<p class="text-gray-300">Not listening to anything</p>';
+                    nowPlayingEl.innerHTML = '<p class="text-gray-300">Not in a game</p>';
+                    return;
+                }
+
+                // Find activities - more flexible matching
+                const activities = data.data.activities;
+                const listeningActivity = activities.find(a => 
+                    a.type === 2 || a.name?.toLowerCase().includes('music') || 
+                    a.application_id === '463151177836658699' // YouTube Music
+                );
+                
+                const codingActivity = activities.find(a => 
+                    a.name?.toLowerCase().includes('code') || 
+                    a.application_id === '782685898163617802' // VS Code
+                );
+
+                // Update Now Listening
+                if (listeningActivity) {
+                    const imageUrl = listeningActivity.assets?.large_image ?
+                        listeningActivity.assets.large_image.replace('mp:', 'https://media.discordapp.net/') :
+                        'https://cdn.discordapp.com/emojis/808045512393621585.png';
+                    
+                    nowListeningEl.innerHTML = `
+                        <div class="flex items-center space-x-4">
+                            <img src="${imageUrl}" alt="Album Art" class="w-16 h-16 rounded-md object-cover" 
+                                 onerror="this.src='https://cdn.discordapp.com/emojis/808045512393621585.png'"
+                                 style="min-width: 4rem; min-height: 4rem;">
+                            <div class="text-left overflow-hidden">
+                                <p class="font-medium text-white truncate">${listeningActivity.details || 'Listening to music'}</p>
+                                <p class="text-sm text-gray-300 truncate">${listeningActivity.state || listeningActivity.name || 'Unknown'}</p>
+                                ${listeningActivity.assets?.small_text ? 
+                                  `<p class="text-xs text-gray-400">${listeningActivity.assets.small_text}</p>` : ''}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    nowListeningEl.innerHTML = '<p class="text-gray-300">Not listening to anything</p>';
+                }
+
+                // Update Now Playing (VS Code/Other apps)
+                if (codingActivity) {
+                    const imageUrl = codingActivity.assets?.large_image ?
+                        codingActivity.assets.large_image.replace('mp:', 'https://media.discordapp.net/') :
+                        'https://cdn.discordapp.com/emojis/597576770804481049.png';
+                    
+                    nowPlayingEl.innerHTML = `
+                        <div class="flex items-center space-x-4">
+                            <img src="${imageUrl}" alt="App Icon" class="w-16 h-16 rounded-md object-cover"
+                                 onerror="this.src='https://cdn.discordapp.com/emojis/597576770804481049.png'"
+                                 style="min-width: 4rem; min-height: 4rem;">
+                            <div class="text-left overflow-hidden">
+                                <p class="font-medium text-white truncate">${codingActivity.name || 'Coding'}</p>
+                                ${codingActivity.details ? 
+                                  `<p class="text-sm text-gray-300 truncate">${codingActivity.details}</p>` : ''}
+                                ${codingActivity.state ? 
+                                  `<p class="text-sm text-gray-300 truncate">${codingActivity.state}</p>` : ''}
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    nowPlayingEl.innerHTML = '<p class="text-gray-300">Not currently active</p>';
+                }
+            } catch (error) {
+                console.error('Failed to fetch Discord status:', error);
+            }
+        }
+
+        // Update Discord status every 15 seconds
+        setInterval(updateDiscordStatus, 15000);
+
+        updateDiscordStatus();
+    </script>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 sm:py-20 bg-gradient-to-br from-white/5 to-transparent px-4 sm:px-6">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title mb-16">Get In Touch</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Contact Info -->
+                    <div class="glass-card h-full">
+                        <h3 class="text-2xl font-bold mb-6 text-center">Contact Information</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="bg-accent/20 p-3 rounded-full mr-4">
+                                    <i class="fas fa-envelope text-accent"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Email</h4>
+                                    <a href="mailto:nutchanon9911@gmail.com" class="text-gray-300 hover:text-accent transition-colors">nutchanon9911@gmail.com</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-blue-500/20 p-3 rounded-full mr-4">
+                                    <i class="fab fa-github text-blue-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">GitHub</h4>
+                                    <a href="https://github.com/Nonx2360" target="_blank" class="text-gray-300 hover:text-blue-400 transition-colors">github.com/yourusername</a>
+                                </div>
+                            </div>
+                            <div class="flex items-start">
+                                <div class="bg-indigo-500/20 p-3 rounded-full mr-4">
+                                    <i class="fab fa-discord text-indigo-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold">Discord</h4>
+                                    <a href="https://discord.com/users/908945543223463997" target="_blank" class="text-gray-300 hover:text-indigo-400 transition-colors">Nonx2#0000</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-white/10">
+                            <h4 class="font-semibold mb-4">Follow Me</h4>
+                            <div class="flex space-x-4">
+                                <a href="https://github.com/Nonx2360" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-gray-700 hover:text-white transition-colors">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="https://instagram.com/nonx2_real" target="_blank" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-pink-600 hover:text-white transition-colors">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="glass-card">
+                        <h3 class="text-2xl font-bold mb-6 text-center">Send Me a Message</h3>
+                        <form action="https://formspree.io/f/xpwjarnb" method="POST" class="space-y-4">
+                            <div>
+                                <label for="name" class="block text-sm font-medium mb-1">Name</label>
+                                <input type="text" id="name" name="name" required class="w-full bg-white/10 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="Your name">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium mb-1">Email</label>
+                                <input type="email" id="email" name="email" required class="w-full bg-white/10 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="Your email">
+                            </div>
+                            <div>
+                                <label for="message" class="block text-sm font-medium mb-1">Message</label>
+                                <textarea id="message" name="message" rows="4" required class="w-full bg-white/10 border border-white/10 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent" placeholder="Your message"></textarea>
+                            </div>
+                            <button type="submit" class="w-full bg-accent hover:bg-accent/90 text-white font-medium py-2.5 px-6 rounded-lg transition duration-300 transform hover:-translate-y-0.5">
+                                Send Message
+                            </button>
+                        </form>
+                        <div id="form-status" class="mt-4 text-center hidden"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 border-t border-white/10">
+        <div class="container mx-auto px-6 text-center">
+            <div class="flex justify-center space-x-6 mb-6">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                    <i class="fab fa-github text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-blue-400 transition-colors">
+                    <i class="fab fa-twitter text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-blue-600 transition-colors">
+                    <i class="fab fa-linkedin-in text-xl"></i>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-pink-500 transition-colors">
+                    <i class="fab fa-instagram text-xl"></i>
+                </a>
+            </div>
+            <p class="text-gray-400 text-sm">
+                &copy; 2025 Nonx2. All rights reserved.
+            </p>
         </div>
     </footer>
 
+    <!-- Back to Top Button -->
+    <a href="#" id="back-to-top" class="fixed bottom-8 right-8 w-12 h-12 bg-accent text-white rounded-full flex items-center justify-center opacity-0 invisible transition-all duration-300 transform translate-y-4">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+
     <script>
+        
         document.addEventListener('DOMContentLoaded', () => {
+            const texts = ['Full Stack Developer', 'Music Lover', 'Anime Enthusiast'];
+            let count = 0;
+            let index = 0;
+            let currentText = '';
+            let letter = '';
+            let isDeleting = false;
+            const typingText = document.querySelector('.typing-text');
+            const cursor = document.querySelector('.cursor');
+            
+            function type() {
+                if (count === texts.length) {
+                    count = 0;
+                }
+                currentText = texts[count];
+                
+                if (isDeleting) {
+                    letter = currentText.substring(0, index - 1);
+                    index--;
+                } else {
+                    letter = currentText.substring(0, index + 1);
+                    index++;
+                }
+                
+                typingText.textContent = letter;
+                
+                if (!isDeleting && letter === currentText) {
+                    isDeleting = true;
+                    setTimeout(type, 1000);
+                } else if (isDeleting && letter === '') {
+                    isDeleting = false;
+                    count++;
+                    setTimeout(type, 300);
+                } else {
+                    const typeSpeed = isDeleting ? 50 : 100;
+                    setTimeout(type, typeSpeed);
+                }
+                
+                // Cursor blink effect
+                cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+            }
+            
+            // Start typing effect
+            setTimeout(type, 1000);
+            
             // Smooth scrolling for navigation links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function(e) {
                     e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
                 });
             });
-
-            // Navbar scroll effect
+            
+            // Back to top button
+            const backToTop = document.getElementById('back-to-top');
+            
             window.addEventListener('scroll', () => {
-                const navbar = document.querySelector('.navbar');
-                if (window.scrollY > 50) {
-                    navbar.style.backgroundColor = 'rgba(44, 62, 80, 0.95)';
+                if (window.pageYOffset > 300) {
+                    backToTop.classList.remove('opacity-0', 'invisible', 'translate-y-4');
+                    backToTop.classList.add('opacity-100', 'visible', 'translate-y-0');
                 } else {
-                    navbar.style.backgroundColor = 'rgba(44, 62, 80, 0.8)';
+                    backToTop.classList.remove('opacity-100', 'visible', 'translate-y-0');
+                    backToTop.classList.add('opacity-0', 'invisible', 'translate-y-4');
                 }
             });
-
-            // Fade-in animation for sections
+            
+            
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
+                        entry.target.classList.add('animate-fade-in', 'opacity-100', 'translate-y-0');
+                        observer.unobserve(entry.target);
                     }
                 });
-            }, {
-                threshold: 0.1
+            }, observerOptions);
+            
+            
+            document.querySelectorAll('.fade-in').forEach(section => {
+                observer.observe(section);
             });
-
-            document.querySelectorAll('.fade-in, .slide-in').forEach(element => {
-                observer.observe(element);
-            });
-
-            // Add hover effect to project cards
-            document.querySelectorAll('.project-card').forEach(card => {
-                card.addEventListener('mouseenter', () => {
-                    card.querySelector('.project-overlay').style.opacity = '1';
+            
+            
+            const mobileMenuButton = document.querySelector('.md\:hidden');
+            const mobileMenu = document.querySelector('.mobile-menu');
+            
+            if (mobileMenuButton) {
+                mobileMenuButton.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
                 });
-                card.addEventListener('mouseleave', () => {
-                    card.querySelector('.project-overlay').style.opacity = '0';
-                });
-            });
+            }
         });
+
+        // Form submission handling
+        const form = document.querySelector('form[action*="formspree.io"]');
+        const formStatus = document.createElement('div');
+        formStatus.id = 'form-status';
+        formStatus.className = 'mt-4 text-center hidden';
+        form.appendChild(formStatus);
+
+        async function handleSubmit(event) {
+            event.preventDefault();
+            const formData = new FormData(event.target);
+            
+            // Show loading state
+            formStatus.textContent = 'Sending message...';
+            formStatus.className = 'mt-4 text-center text-blue-400';
+            formStatus.classList.remove('hidden');
+
+            try {
+                const response = await fetch(form.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    // Show success message
+                    formStatus.textContent = 'Message sent successfully! I\'ll get back to you soon.';
+                    formStatus.className = 'mt-4 text-center text-green-400';
+                    form.reset();
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                // Show error message
+                formStatus.textContent = 'Oops! There was a problem sending your message. Please try again later or email me directly.';
+                formStatus.className = 'mt-4 text-center text-red-400';
+            }
+        }
+
+        form.addEventListener('submit', handleSubmit);
     </script>
 </body>
-
 </html>
